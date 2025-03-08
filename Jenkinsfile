@@ -4,7 +4,12 @@ pipeline{
         stage('CodeScan'){
             steps{
                 sh 'trivy fs . -o file.txt'
-                sh 'cat file.txt'
+            }
+        }
+        stage('TerraformValidate'){
+            steps{
+                sh 'terraform init'
+                sh 'terraform validate'
             }
         }
 
