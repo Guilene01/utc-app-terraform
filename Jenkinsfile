@@ -17,8 +17,12 @@ pipeline{
         }
         stage('Plan') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
-                    // AWS credentials will be injected as environment variables
+                withCredentials([usernamePassword(credentialsId: 'aws-credentials', 
+                                                    usernameVariable: 'AWS_ACCESS_KEY_ID', 
+                                                    passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    // Set AWS credentials as environment variables to be used in Terraform commands
+                sh 'echo $AWS_ACCESS_KEY_ID'
+                sh 'echo $AWS_SECRET_ACCESS_KEY'
                 sh 'terraform plan'
             }
         }
