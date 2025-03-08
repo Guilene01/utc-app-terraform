@@ -22,6 +22,18 @@ pipeline {
                 sh 'terraform validate'
             }
         }
+        stage('Plan'){
+            steps{
+                sh 'terraform fmt'
+                sh 'terraform plan'
+            }
+        }
+        stage('ApplyCode'){
+            steps{
+                sh 'terraform apply --auto-approve'
+                
+            }
+        }
 
     }
 }
