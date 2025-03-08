@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment {
+        AWS_PROFILE = 'default'  // Set your profile name here if you're using a specific profile
+    }
     stages{
         stage('CodeScan'){
             steps{
@@ -17,14 +20,10 @@ pipeline{
         }
         stage('Plan') {
             steps {
-                withCredentials([aws(credentialsId: 'aws-credentials')]) {
-                    // Set AWS credentials as environment variables to be used in Terraform commands
-                sh 'echo $AWS_ACCESS_KEY_ID'
-                sh 'echo $AWS_SECRET_ACCESS_KEY'
-                sh 'terraform plan'
+               sh 'terraform plan'
             }
         }
-    }
+    
     }
     post {
         always {
