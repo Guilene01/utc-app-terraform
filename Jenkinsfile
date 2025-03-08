@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 pipeline {
     agent any
     stages {
-        stage('Deploy to AWS') {
+        stage('connect to AWS') {
             steps {
                 script {
                     withCredentials([[
