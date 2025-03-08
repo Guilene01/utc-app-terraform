@@ -1,7 +1,8 @@
 pipeline{
     agent any
     environment {
-        AWS_PROFILE = 'default'  // Set your profile name here if you're using a specific profile
+        AWS_ACCESS_KEY_ID = credentials('aws-access-key-id')  // This assumes you have stored these as secrets in Jenkins
+        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key') // This assumes you have stored these as secrets in Jenkins
     }
     stages{
         stage('CodeScan'){
@@ -11,11 +12,9 @@ pipeline{
         }
         stage('TerraformValidate'){
             steps{
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
-                sh 'echo $AWS_ACCESS_KEY_ID'  // Display AWS Access Key ID for debugging
                 sh 'terraform init'
                 sh 'terraform validate'
-            }
+            
           }
         }
         stage('Plan') {
