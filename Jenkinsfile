@@ -1,8 +1,8 @@
 pipeline{
     agent any
     environment {
-        AWS_ACCESS_KEY_ID = credentials('aws-access-key-id')  // This assumes you have stored these as secrets in Jenkins
-        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key') // This assumes you have stored these as secrets in Jenkins
+        AWS_ACCESS_KEY_ID = aws-credentials('aws-access-key-id')  // This assumes you have stored these as secrets in Jenkins
+        AWS_SECRET_ACCESS_KEY = aws-credentials('aws-secret-access-key') // This assumes you have stored these as secrets in Jenkins
     }
     stages{
         stage('CodeScan'){
