@@ -16,6 +16,13 @@ pipeline {
                 }
             }
         }
+        stage('ScanCode'){
+            steps{
+                sh 'trivy fs . -o file.txt'
+                sh 'cat file.txt'
+                
+            }
+        }
         stage('TerraformValidate'){
             steps{
                 sh 'terraform init'
@@ -31,6 +38,12 @@ pipeline {
         stage('ApplyCode'){
             steps{
                 sh 'terraform apply --auto-approve'
+                
+            }
+        }
+        stage('DestroyCode'){
+            steps{
+                sh 'terraform destroy --auto-approve'
                 
             }
         }
